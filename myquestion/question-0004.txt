@@ -1,0 +1,25 @@
+Reto 0004: Predictor de Degradación de Baterías de Litio
+
+Contexto:
+Un laboratorio de electro-movilidad mide variables operativas en cada ciclo
+de carga/descarga de celdas de batería. df_train contiene las columnas:
+'ciclo', 'temp_maxima_C', 'voltaje_final_V', 'corriente_media_A',
+'tiempo_carga_min', 'resistencia_interna', 'soh_pct' (objetivo).
+df_test tiene las mismas columnas excepto 'soh_pct'.
+
+Tu misión:
+Escribe una función predecir_degradacion_bateria(df_train, df_test) que:
+
+1. Limpie df_train (no modificar df_test):
+   - Eliminar filas con cualquier valor nulo.
+   - Eliminar filas donde 'voltaje_final_V' <= 0.
+   - Eliminar filas donde 'temp_maxima_C' > 80.
+2. Separe X_train (excluir 'ciclo' y 'soh_pct') e y_train ('soh_pct').
+3. Prepare X_test usando las mismas columnas predictoras (excluir 'ciclo').
+4. Construya y entrene un Pipeline:
+   - 'imputer'   : SimpleImputer(strategy='median')
+   - 'scaler'    : StandardScaler()
+   - 'regressor' : Ridge(alpha=1.0)
+5. Retorne un DataFrame con columnas ['ciclo', 'soh_pred'], donde 'ciclo'
+   viene de df_test['ciclo'] y 'soh_pred' son las predicciones redondeadas
+   a 4 decimales. Índice reiniciado.
