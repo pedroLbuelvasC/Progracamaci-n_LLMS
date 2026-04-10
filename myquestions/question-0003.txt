@@ -1,0 +1,19 @@
+Reto 0003: Clasificador de Fallas en Redes Eléctricas
+
+Contexto:
+Una empresa de transmisión eléctrica instrumenta sus líneas de alta tensión.
+Ante un evento, se extraen características estadísticas de la señal y se
+clasifican en 4 tipos de falla: 0 = Normal, 1 = Línea-tierra, 2 = Línea-línea,
+3 = Trifásica. Los datos contienen outliers de impulso eléctrico.
+
+Tu misión:
+Escribe una función clasificar_falla_electrica(X_train, y_train, X_test, n_components) que:
+
+1. Construya un Pipeline de sklearn con los pasos en este orden:
+   - 'scaler'     : RobustScaler()
+   - 'pca'        : PCA(n_components=n_components, random_state=42)
+   - 'classifier' : GradientBoostingClassifier(n_estimators=100, max_depth=3,
+                                               random_state=42)
+2. Entrene el pipeline con X_train, y_train.
+3. Prediga las clases para X_test.
+4. Retorne un numpy array de shape (n_test,) con valores enteros en {0,1,2,3}.

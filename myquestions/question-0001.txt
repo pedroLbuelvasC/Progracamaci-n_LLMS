@@ -1,0 +1,20 @@
+Reto 0001: Centinela de Vibración Industrial
+
+Contexto:
+Una planta de manufactura monitorea motores eléctricos con acelerómetros.
+Cada fila de un DataFrame representa una ventana temporal de la señal de
+vibración, con columnas numéricas 'v0', 'v1', ..., 'vN' y una columna
+categórica 'motor_id' que debe ignorarse. Se pide detectar qué ventanas
+contienen vibraciones anómalas usando el error de reconstrucción de PCA.
+
+Tu misión:
+Escribe una función detectar_vibracion_anomala(df, n_components, umbral_percentil=95) que:
+
+1. Seleccione únicamente las columnas numéricas del DataFrame (ignorar 'motor_id').
+2. Estandarice los datos con StandardScaler (fit_transform sobre todo X).
+3. Ajuste un PCA con n_components sobre los datos escalados.
+4. Reconstruya los datos con inverse_transform.
+5. Calcule el Error Cuadrático Medio de reconstrucción por fila (sin loops explícitos).
+6. Calcule el umbral como el percentil umbral_percentil de los errores con numpy.
+7. Retorne un numpy array booleano de shape (n_samples,) donde True indica
+   ventana anómala (error > umbral).
